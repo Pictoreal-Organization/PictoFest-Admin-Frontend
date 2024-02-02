@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-img {
+  background-size: cover;
+}
+
+@media (min-width: 640px) {
+  .eyePlacing {
+      bottom: 4.6rem;
+      right: 1.4rem;
+  }
+}
+@media (max-width: 640px) {
+  .eyePlacing {
+      bottom: 4.6rem;
+      right: 1.4rem;
+  }
+}

@@ -3,22 +3,18 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Lobster } from "next/font/google";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { AuthContext } from "@/app/context/auth-context";
-
-const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+import isAuth from "../components/isAuth";
+import { useAuth } from "../context/Auth";
+import { baseURL } from "../api";
 
 const inter = Lobster({ subsets: ["latin"], weight: "400" });
 
 const Login = () => {
   const router = useRouter();
 
-  useEffect(() => {
-    localStorage.clear();
-  }, []);
-
-  const { setAdminAuthInfo } = useContext(AuthContext);
+  const { setAdminAuthInfo } = useAuth();
 
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +32,7 @@ const Login = () => {
         password,
       });
       setAdminAuthInfo(response.data.data);
-      console.log(response.data);
+      window.location.reload();
       toast.success(response.data.message);
       router.push("/");
     } catch (err) {
@@ -96,4 +92,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default isAuth(Login);

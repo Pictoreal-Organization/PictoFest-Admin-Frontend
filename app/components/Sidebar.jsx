@@ -54,6 +54,11 @@ const SideBar = () => {
                 <span class="flex-1 ms-3 whitespace-nowrap">Hardcopy</span>
               </a>
             </li>
+            <li>
+              <div className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <button>Logout</button>
+              </div>
+            </li>
           </ul>
         </div>
       </aside>

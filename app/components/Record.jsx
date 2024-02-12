@@ -1,12 +1,10 @@
 import axios from "axios";
 import { toast } from "sonner";
-import { useContext } from "react";
-import { AuthContext } from "@/app/context/auth-context";
-
-const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+import { useAuth } from "../context/Auth";
+import { baseURL } from "../api";
 
 function Record({ payment }) {
-  const { adminAuthState } = useContext(AuthContext);
+  const { adminAuthState } = useAuth();
   const token = adminAuthState.token;
 
   // const token =
@@ -22,7 +20,7 @@ function Record({ payment }) {
     }
     try {
       const response = await axios.post(
-        `${baseURL}/adminApproval/${status}`,
+        `${baseURL}/approval/${status}`,
         {
           payment_id: paymentid,
         },

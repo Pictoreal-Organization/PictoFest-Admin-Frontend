@@ -1,7 +1,8 @@
 import "./globals.css";
 import { Toaster } from "sonner";
 import { Nunito } from "next/font/google";
-import { AuthProvider } from "@/app/context/auth-context";
+// import { AuthProvider } from "@/app/context/auth-context";
+import { AuthProvider } from "./context/Auth";
 
 const inter = Nunito({ subsets: ["latin"] });
 

@@ -1,12 +1,10 @@
 import axios from "axios";
 import { toast } from "sonner";
-import { useContext } from "react";
-import { AuthContext } from "@/app/context/auth-context";
-
-const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+import { baseURL } from "../api";
+import { useAuth } from "../context/Auth";
 
 function Image({ image }) {
-  const { adminAuthState } = useContext(AuthContext);
+  const { adminAuthState } = useAuth();
   const token = adminAuthState.token;
 
   //   const token =

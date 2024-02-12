@@ -15,6 +15,8 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
+    localStorage.removeItem("admin_token");
+    localStorage.removeItem("admin");
     return Promise.reject(error);
   }
 );

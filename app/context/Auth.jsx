@@ -13,21 +13,19 @@ const useAuth = () => {
 const AuthProvider = ({ children }) => {
   const [adminAuthState, setAdminAuthState] = useState({
     token: "",
-    id: "",
+    admin: {},
   });
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const id = localStorage.getItem("id");
-    // const user = JSON.parse(localStorage.getItem("user"));
-    setAdminAuthState({ token, id });
+    const token = localStorage.getItem("admin_token");
+    const admin = JSON.parse(localStorage.getItem("admin"));
+    setAdminAuthState({ token, admin });
   }, []);
 
   const setAdminAuthInfo = (data) => {
-    const token = localStorage.setItem("token", data.token);
-    const id = localStorage.setItem("id", data.token);
-    // const user = localStorage.setItem("user", JSON.stringify(data.user));
-    setAdminAuthState({ token, id });
+    const token = localStorage.setItem("admin_token", data.token);
+    const admin = localStorage.setItem("admin", JSON.stringify(data.admin));
+    setAdminAuthState({ token, admin });
   };
 
   const isAdminAuthenticated = () => {

@@ -1,13 +1,13 @@
 "use client";
+
 import Payment from "./components/Payment";
 import SideBar from "./components/SideBar";
 import ImageApprov from "./components/ImageApprov";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import api from "@/app/api";
-import { baseURL } from "@/app/api";
-import { useAuth } from "./context/Auth";
-import isNotAuth from "./components/isNotAuth";
+import { useAuth } from "@/app/context/Auth";
+import isNotAuth from "@/app/components/isNotAuth";
 
 const Home = () => {
   const router = useRouter();
@@ -16,11 +16,15 @@ const Home = () => {
   const handleLogOut = async () => {
     try {
       const response = await api.post("/admin/logout");
-      localStorage.removeItem("token"); // admin_token
-      localStorage.removeItem("id"); // admin
-      setAdminAuthInfo({ token: "", id: "" });
+
+      localStorage.removeItem("admin_token");
+      localStorage.removeItem("admin");
+
+      setAdminAuthInfo({ token: "", admin: {} });
+
       toast.success(response.data.message);
-      router.push('/login');
+      
+      router.push("/login");
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);

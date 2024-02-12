@@ -1,22 +1,22 @@
 "use client";
+
 import axios from "axios";
 import { toast } from "sonner";
 import { Lobster } from "next/font/google";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import isAuth from "../components/isAuth";
-import { useAuth } from "../context/Auth";
-import { baseURL } from "../api";
+import { useAuth } from "@/app/context/Auth";
+import { baseURL } from "@/app/api";
+import isAuth from "@/app/components/isAuth";
 
 const inter = Lobster({ subsets: ["latin"], weight: "400" });
 
 const Login = () => {
   const router = useRouter();
-
   const { setAdminAuthInfo } = useAuth();
 
-  const [user, setUser] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showEye, setShowEye] = useState(false);
 
@@ -26,24 +26,28 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
       const response = await axios.post(`${baseURL}/admin/login`, {
-        username: user,
+        username,
         password,
       });
+
       setAdminAuthInfo(response.data.data);
-      window.location.reload();
+
       toast.success(response.data.message);
+
       router.push("/");
+      window.location.reload();
     } catch (err) {
-      toast.error(err.response.data.message);
       console.log(err);
+      toast.error(err.response.data.message);
     }
   };
 
   return (
     <main className={inter.className}>
-      <div className="flex justify-center items-center h-screen bg-[url('/img/retro.png')] bg-cover">
+      <div className="flex justify-center items-center h-screen bg-[url('/img/login/website_cream.png')] bg-cover">
         <div className="bg-[#EAE1CF] p-6 rounded-xl shadow-2xl sm:w-auto sm:p-4">
           <div className=" bg-[#EAE1CF] border-4 border-dashed border-neutral-500 p-6 rounded-lg drop-shadow-sm w-72 sm:w-auto sm:h-auto sm:p-10">
             <div className="flex flex-col justify-center text-neutral-500 items-center font-semibold mb-5">
@@ -60,8 +64,8 @@ const Login = () => {
                 className="w-full outline-none  h-10 sm:h-12 p-3 mb-4 bg-[#F8E9CB] rounded-xl ring-2 ring-neutral-500 text-neutral-500 placeholder-neutral-500"
                 type="text"
                 placeholder="Username"
-                value={user}
-                onChange={(e) => setUser(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
               <input
                 className="w-full outline-none h-10 sm:h-12 p-3 mb-4 bg-[#F8E9CB] rounded-xl ring-2 ring-neutral-500 text-neutral-500 placeholder-neutral-500"

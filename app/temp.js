@@ -10,26 +10,6 @@ import { useAuth } from "@/app/context/Auth";
 import isNotAuth from "@/app/components/isNotAuth";
 
 const Home = () => {
-  const router = useRouter();
-  const { setAdminAuthInfo } = useAuth();
-
-  const handleLogOut = async () => {
-    try {
-      const response = await api.post("/admin/logout");
-
-      localStorage.removeItem("admin_token");
-      localStorage.removeItem("admin");
-
-      setAdminAuthInfo({ token: "", admin: {} });
-
-      toast.success(response.data.message);
-      
-      router.push("/login");
-    } catch (err) {
-      console.log(err);
-      toast.error(err.response.data.message);
-    }
-  };
 
   return (
     <main className="">

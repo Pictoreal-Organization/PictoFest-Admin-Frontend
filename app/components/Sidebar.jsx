@@ -1,5 +1,32 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import api from "@/app/api";
+import { useAuth } from "@/app/context/Auth";
 
 const SideBar = () => {
+  const router = useRouter();
+  const { setAdminAuthInfo } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      const response = await api.post("/admin/logout");
+
+      localStorage.removeItem("admin_token");
+      localStorage.removeItem("admin");
+
+      setAdminAuthInfo({ token: "", admin: {} });
+
+      toast.success(response.data.message);
+
+      router.push("/");
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response.data.message);
+    }
+  };
+  
   return (
     <div className="bg-black">
       <button
@@ -56,7 +83,7 @@ const SideBar = () => {
             </li>
             <li>
               <div className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <button>Logout</button>
+                <button onClick={handleLogout}>Logout</button>
               </div>
             </li>
           </ul>
@@ -64,6 +91,6 @@ const SideBar = () => {
       </aside>
     </div>
   );
-}
+};
 
-export default SideBar
+export default SideBar;

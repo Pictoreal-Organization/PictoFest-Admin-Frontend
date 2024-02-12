@@ -6,7 +6,6 @@ import Record from "./Record.jsx";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/Auth.jsx";
 import { baseURL } from "../api.js";
-import SideBar from "./Sidebar.jsx";
 
 function Payment() {
   const { adminAuthState } = useAuth();

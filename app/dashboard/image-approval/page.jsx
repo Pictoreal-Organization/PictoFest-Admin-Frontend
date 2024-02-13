@@ -1,0 +1,67 @@
+"use client";
+import { toast } from "sonner";
+import { useEffect, useState } from "react";
+import api from "@/app/api";
+
+const Image = ({ image }) => {
+  return (
+    <>
+      <div
+        className="text-lg grid grid-cols-3 justify-around text-black"
+        key={image.id}
+      >
+        <p className="mx-auto">{image.id}</p>
+        <p className="mx-auto">{image.fk_user}</p>
+        <a className="mx-auto" href={image.image_link} />{" "}
+      </div>
+    </>
+  );
+};
+
+const ImageApproved = () => {
+  const [imageData, setimageData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  const getData = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await api.get("/dashboard/images/approved");
+      const imageDetails = await response.data;
+
+      toast.success(response.data.message);
+      setimageData(imageDetails.data);
+      console.log(imageDetails.data)
+    } catch (err) {
+      toast.error(err.response.data.message);
+      console.log(err);
+      setError(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return (
+    <div className="flex">
+      <table className="w-4/5 mx-auto mt-4">
+        <thead>
+          <tr className="flex justify-around text-xl border border-black">
+            <th className=" border-black mx-4">Image id</th>
+            <th className="mx-4">Name</th>
+            <th className=" border-black mx-4">URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {imageData &&
+            imageData.map((image) => <Image key={image.id} image={image} />)}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default ImageApproved;

@@ -1,9 +1,9 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import api from "@/app/api";
 import { useAuth } from "@/app/context/Auth";
+import api from "@/app/api";
+import Link from "next/link";
 
 const SideBar = () => {
   const router = useRouter();
@@ -46,43 +46,53 @@ const SideBar = () => {
         <div class="h-full px-3 py-4 overflow-y-auto bg-gray-500 dark:bg-gray-800">
           <ul class="space-y-2 font-medium">
             <li>
-              <a
-                href="#"
+              <Link
+                href="/dashboard/payment"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <span class="ms-3">Payment</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                href="/dashboard/image-uploaded"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <span class="flex-1 ms-3 whitespace-nowrap">
                   Image Uploaded
                 </span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                href="/dashboard/image-approval"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <span class="flex-1 ms-3 whitespace-nowrap">
                   Image Approved
                 </span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
+                href="/dashboard/image-unapproval"
+                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                <span class="flex-1 ms-3 whitespace-nowrap">
+                  Image Unapproved
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="#"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <span class="flex-1 ms-3 whitespace-nowrap">Hardcopy</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <div className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <div className="flex items-center pl-5 p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <button onClick={handleLogout}>Logout</button>
               </div>
             </li>

@@ -1,3 +1,4 @@
+// import React from 'react'
 "use client";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
@@ -20,7 +21,7 @@ const Payment = ({ payment }) => {
   );
 };
 
-const PaymentAccepted = () => {
+const PaymentRejected = () => {
   const [paymentData, setpaymentData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,7 +30,7 @@ const PaymentAccepted = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await api.get("/dashboard/payments/accepted");
+      const response = await api.get("/dashboard/payments/rejected");
       const paymentDetails = await response.data;
 
       toast.success(response.data.message);
@@ -67,6 +68,6 @@ const PaymentAccepted = () => {
       </table>
     </div>
   );
-};
+}
 
-export default PaymentAccepted;
+export default PaymentRejected;

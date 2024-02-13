@@ -2,7 +2,7 @@
 "use client";
 import axios from "axios";
 import { toast } from "sonner";
-import Record from "./Record.jsx";
+import Record from "./PaymentRow.jsx";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/Auth.jsx";
 import { baseURL } from "../api.js";

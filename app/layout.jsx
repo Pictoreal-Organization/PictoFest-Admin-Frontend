@@ -16,7 +16,14 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <AuthProvider>
           {children}
-          <Toaster richColors position="top-right" />
+          <Toaster
+            position="top-right"
+            richColors
+            closeButton
+            duration={4000}
+            pauseWhenPageIsHidden
+            visibleToasts={1}
+          />
         </AuthProvider>
       </body>
     </html>

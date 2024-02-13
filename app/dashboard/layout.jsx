@@ -1,4 +1,7 @@
+"use client";
+
 import SideBar from "@/app/components/Sidebar";
+import isNotAuth from "@/app/components/isNotAuth";
 
 const DashboardLayout = ({ children }) => {
   return (
@@ -11,4 +14,4 @@ const DashboardLayout = ({ children }) => {
   );
 };
 
-export default DashboardLayout;
+export default isNotAuth(DashboardLayout);

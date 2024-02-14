@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import api from "@/app/api.js";
 import PaymentRow from "@/app/components/PaymentRow.jsx";
 
-const PaymentPending = () => {
+const Payments = () => {
   const [payments, setPayments] = useState([]);
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("");
@@ -18,8 +18,6 @@ const PaymentPending = () => {
       } else {
         response = await api.get(`/dashboard/payments/`);
       }
-
-      console.log(response.data.message);
       setPayments(response.data.data);
     } catch (err) {
       toast.error(err.response.data.message);
@@ -35,8 +33,8 @@ const PaymentPending = () => {
     <div className="w-4/5 mx-5">
       <div className="flex justify-between items-center my-5">
         <input
-          className="border border-1 border-black p-2 w-1/4 rounded-md"
-          placeholder="Search By Transaction Id"
+          className="border border-1 border-black p-2 w-2/4 rounded-md"
+          placeholder="Search By Transaction Id and Name"
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -56,7 +54,7 @@ const PaymentPending = () => {
         <thead>
           <tr className="text-xl border border-1 border-black">
             <th className="border border-1 border-black p-2">Payment Id</th>
-            <th className="border border-1 border-black p-2">User Id</th>
+            <th className="border border-1 border-black p-2">Name</th>
             <th className="border border-1 border-black p-2">Transaction Id</th>
             <th className="border border-1 border-black p-2">Amount</th>
             <th className="border border-1 border-black p-2">
@@ -73,7 +71,11 @@ const PaymentPending = () => {
                 } else if (
                   payment.transaction_id
                     .toLowerCase()
-                    .includes(query.toLowerCase())
+                    .includes(query.toLowerCase()) ||
+                  payment.first_name
+                    .toLowerCase()
+                    .includes(query.toLowerCase()) ||
+                  payment.last_name.toLowerCase().includes(query.toLowerCase())
                 ) {
                   return payment;
                 }
@@ -91,4 +93,4 @@ const PaymentPending = () => {
   );
 };
 
-export default PaymentPending;
+export default Payments;

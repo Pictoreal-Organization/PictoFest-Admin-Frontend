@@ -55,7 +55,9 @@ const PaymentRow = (props) => {
   return (
     <tr>
       <td className="border border-1 border-black p-2">{payment.id}</td>
-      <td className="border border-1 border-black p-2">{payment.fk_user}</td>
+      <td className="border border-1 border-black p-2">
+        {payment.first_name + " " + payment.last_name}
+      </td>
       <td className="border border-1 border-black p-2">
         {payment.transaction_id}
       </td>

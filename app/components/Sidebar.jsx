@@ -41,6 +41,22 @@ const SideBar = () => {
         </li>
         <li>
           <Link
+            href="/dashboard/users"
+            className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
+          >
+            <span className="flex-1 mx-3 whitespace-nowra">Users</span>
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/dashboard/events"
+            className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
+          >
+            <span className="flex-1 mx-3 whitespace-nowra">Events</span>
+          </Link>
+        </li>
+        <li>
+          <Link
             href="/dashboard/payments"
             className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
           >

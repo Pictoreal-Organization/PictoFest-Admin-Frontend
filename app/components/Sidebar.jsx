@@ -5,10 +5,12 @@ import { toast } from "sonner";
 import { useAuth } from "@/app/context/Auth";
 import api from "@/app/api";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const SideBar = () => {
   const router = useRouter();
   const { setAdminAuthInfo } = useAuth();
+  const pathname = usePathname();
 
   const handleLogout = async () => {
     try {
@@ -35,6 +37,13 @@ const SideBar = () => {
           <Link
             href="/dashboard/"
             className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
+            style={
+              pathname === "/dashboard/"
+                ? {
+                    backgroundColor: "rgb(55,65,81)",
+                  }
+                : {}
+            }
           >
             <span className="flex-1 mx-3 whitespace-nowra">Home</span>
           </Link>
@@ -43,6 +52,13 @@ const SideBar = () => {
           <Link
             href="/dashboard/users"
             className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
+            style={
+              pathname === "/dashboard/users"
+                ? {
+                    backgroundColor: "rgb(55,65,81)",
+                  }
+                : {}
+            }
           >
             <span className="flex-1 mx-3 whitespace-nowra">Users</span>
           </Link>
@@ -51,6 +67,13 @@ const SideBar = () => {
           <Link
             href="/dashboard/events"
             className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
+            style={
+              pathname === "/dashboard/events"
+                ? {
+                    backgroundColor: "rgb(55,65,81)",
+                  }
+                : {}
+            }
           >
             <span className="flex-1 mx-3 whitespace-nowra">Events</span>
           </Link>
@@ -59,6 +82,13 @@ const SideBar = () => {
           <Link
             href="/dashboard/payments"
             className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
+            style={
+              pathname === "/dashboard/payments"
+                ? {
+                    backgroundColor: "rgb(55,65,81)",
+                  }
+                : {}
+            }
           >
             <span className="flex-1 mx-3 whitespace-nowra">Payments</span>
           </Link>
@@ -67,6 +97,13 @@ const SideBar = () => {
           <Link
             href="/dashboard/images"
             className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
+            style={
+              pathname === "/dashboard/images"
+                ? {
+                    backgroundColor: "rgb(55,65,81)",
+                  }
+                : {}
+            }
           >
             <span className="flex-1 mx-3 whitespace-nowrap">Images</span>
           </Link>
@@ -75,6 +112,13 @@ const SideBar = () => {
           <Link
             href="/dashboard/physubmission"
             className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
+            style={
+              pathname === "/dashboard/physubmission"
+                ? {
+                    backgroundColor: "rgb(55,65,81)",
+                  }
+                : {}
+            }
           >
             <span className="flex-1 mx-3 whitespace-nowrap">
               Physical Submission

@@ -85,7 +85,7 @@ const SideBar = () => {
         </li>
         <li>
           <Link
-            href="#"
+            href="/dashboard/physubmission"
             className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
           >
             <span className="flex-1 mx-3 whitespace-nowrap">

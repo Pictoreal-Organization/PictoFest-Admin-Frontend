@@ -64,23 +64,11 @@ const SideBar = () => {
           </Link>
         </li>
         <li>
-          <li>
-            <Link
-              href="/dashboard/image-upload"
-              className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
-            >
-              <span className="flex-1 mx-3 whitespace-nowrap">
-                Image Upload
-              </span>
-            </Link>
-          </li>
           <Link
-            href="/dashboard/image-approval"
+            href="/dashboard/images"
             className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
           >
-            <span className="flex-1 mx-3 whitespace-nowrap">
-              Image Approval
-            </span>
+            <span className="flex-1 mx-3 whitespace-nowrap">Images</span>
           </Link>
         </li>
         <li>

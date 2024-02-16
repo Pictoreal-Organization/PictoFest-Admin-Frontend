@@ -17,12 +17,6 @@ export default function isNotAuth(Component) {
       }
     }, [auth]);
 
-    if (!auth) {
-      return (
-        <div className="bg-[url('/img/login/website_cream.png')] h-screen bg-cover"></div>
-      );
-    }
-
     return <Component {...props} />;
   };
 }

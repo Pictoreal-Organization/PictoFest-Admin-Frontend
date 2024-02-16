@@ -60,6 +60,7 @@ const Events = () => {
             <th className="border border-1 border-black p-2">Code</th>
             <th className="border border-1 border-black p-2">Price</th>
             <th className="border border-1 border-black p-2">Registrations</th>
+            <th className="border border-1 border-black p-2">Export CSV</th>
           </tr>
         </thead>
         <tbody>

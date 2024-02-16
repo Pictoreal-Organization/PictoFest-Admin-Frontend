@@ -24,7 +24,6 @@ const Users = () => {
       } else {
         response = await api.get(`/dashboard/images/`);
       }
-      console.log(response.data.data);
       setUserEvents(response.data.data);
     } catch (err) {
       toast.error(err.response.data.message);

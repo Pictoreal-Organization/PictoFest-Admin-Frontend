@@ -35,7 +35,7 @@ const SideBar = () => {
       <ul className="space-y-2 font-bold">
         <li>
           <Link
-            href="/dashboard/"
+            href="/dashboard"
             className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
             style={
               pathname === "/dashboard/"

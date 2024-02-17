@@ -1,8 +1,9 @@
 const UserRow = (props) => {
-  const { user } = props;
-  
+  const { user, index } = props;
+
   return (
     <tr>
+      <td className="border border-1 border-black p-2">{index+1}</td>
       <td className="border border-1 border-black p-2">{user.id}</td>
       <td className="border border-1 border-black p-2">
         {user.first_name + " " + user.last_name}

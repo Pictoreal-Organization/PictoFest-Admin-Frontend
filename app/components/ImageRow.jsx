@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FaImage } from "react-icons/fa";
 
 const UserEventRow = (props) => {
-  const { userEvent, setUserEvents } = props;
+  const { userEvent, setUserEvents, index } = props;
 
   const trimString = (str, length) => {
     if (str.length <= length * 2) {
@@ -65,6 +65,7 @@ const UserEventRow = (props) => {
 
   return (
     <tr>
+      <td className="border border-1 border-black p-2">{index+1}</td>
       <td className="border border-1 border-black p-2">{userEvent.id}</td>
       <td className="border border-1 border-black p-2">
         {userEvent.first_name + " " + userEvent.last_name}

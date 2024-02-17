@@ -2,7 +2,7 @@ import api from "@/app/api";
 import { toast } from "sonner";
 
 const PaymentRow = (props) => {
-  const { payment, setPayments } = props;
+  const { payment, setPayments, index } = props;
 
   const handleAccept = async (e) => {
     e.preventDefault();
@@ -54,6 +54,7 @@ const PaymentRow = (props) => {
 
   return (
     <tr>
+      <td className="border border-1 border-black p-2">{index+1}</td>
       <td className="border border-1 border-black p-2">{payment.id}</td>
       <td className="border border-1 border-black p-2">
         {payment.first_name + " " + payment.last_name}

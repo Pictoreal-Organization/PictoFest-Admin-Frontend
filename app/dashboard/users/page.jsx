@@ -52,6 +52,7 @@ const Users = () => {
       <table className="w-full text-center border-collapse my-5">
         <thead>
           <tr className="text-xl border border-1 border-black">
+            <th className="border border-1 border-black p-2">Sr. No</th>
             <th className="border border-1 border-black p-2">User Id</th>
             <th className="border border-1 border-black p-2">Name</th>
             <th className="border border-1 border-black p-2">Email</th>
@@ -75,7 +76,9 @@ const Users = () => {
                   return user;
                 }
               })
-              .map((user) => <UserRow key={user.id} user={user} />)}
+              .map((user, index) => (
+                <UserRow key={user.id} user={user} index={index} />
+              ))}
         </tbody>
       </table>
     </div>

@@ -53,6 +53,7 @@ const Payments = () => {
       <table className="w-full text-center border-collapse my-5">
         <thead>
           <tr className="text-xl border border-1 border-black">
+            <th className="border border-1 border-black p-2">Sr. No</th>
             <th className="border border-1 border-black p-2">Payment Id</th>
             <th className="border border-1 border-black p-2">Name</th>
             <th className="border border-1 border-black p-2">Transaction Id</th>
@@ -80,11 +81,12 @@ const Payments = () => {
                   return payment;
                 }
               })
-              .map((payment) => (
+              .map((payment, index) => (
                 <PaymentRow
                   key={payment.id}
                   payment={payment}
                   setPayments={setPayments}
+                  index={index}
                 />
               ))}
         </tbody>

@@ -2,11 +2,10 @@
 
 import CsvDownloadButton from "react-json-to-csv";
 import api from "@/app/api";
-import { toast } from "sonner";
 import { useEffect, useState } from "react";
 
 const EventRow = (props) => {
-  const { event } = props;
+  const { event, index } = props;
   const [data, setData] = useState([]);
 
   const getEventData = async (e) => {
@@ -24,6 +23,7 @@ const EventRow = (props) => {
 
   return (
     <tr>
+      <td className="border border-1 border-black p-2">{index+1}</td>
       <td className="border border-1 border-black p-2">{event.id}</td>
       <td className="border border-1 border-black p-2">{event.name}</td>
       <td className="border border-1 border-black p-2">

@@ -60,6 +60,7 @@ const Users = () => {
       <table className="w-full text-center border-collapse my-5">
         <thead>
           <tr className="text-xl border border-1 border-black">
+            <th className="border border-1 border-black p-2">Sr. No</th>
             <th className="border border-1 border-black p-2">User Event Id</th>
             <th className="border border-1 border-black p-2">User Name</th>
             <th className="border border-1 border-black p-2">Event Name</th>
@@ -86,11 +87,12 @@ const Users = () => {
                   return userEvent;
                 }
               })
-              .map((userEvent) => (
+              .map((userEvent, index) => (
                 <ImageRow
                   key={userEvent.id}
                   userEvent={userEvent}
                   setUserEvents={userEvents}
+                  index={index}
                 />
               ))}
         </tbody>

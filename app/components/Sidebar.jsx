@@ -38,7 +38,7 @@ const SideBar = () => {
             href="/dashboard"
             className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
             style={
-              pathname === "/dashboard/"
+              pathname === "/dashboard"
                 ? {
                     backgroundColor: "rgb(55,65,81)",
                   }

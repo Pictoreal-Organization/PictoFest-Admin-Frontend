@@ -91,7 +91,7 @@ const Users = () => {
                 <ImageRow
                   key={userEvent.id}
                   userEvent={userEvent}
-                  setUserEvents={userEvents}
+                  setUserEvents={setUserEvents}
                   index={index}
                 />
               ))}

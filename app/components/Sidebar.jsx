@@ -126,6 +126,23 @@ const SideBar = () => {
           </Link>
         </li>
         <li>
+          <Link
+            href="/dashboard/entries"
+            className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
+            style={
+              pathname === "/dashboard/entries"
+                ? {
+                    backgroundColor: "rgb(55,65,81)",
+                  }
+                : {}
+            }
+          >
+            <span className="flex-1 mx-3 whitespace-nowrap">
+              Entries
+            </span>
+          </Link>
+        </li>
+        <li>
           <div className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group px-5">
             <button className="w-full text-left" onClick={handleLogout}>
               Logout

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FaImage } from "react-icons/fa";
 
-const EntryRow = (props) => {
+const VoteRow = (props) => {
   const { entry, index } = props;
 
   const trimString = (str, length) => {
@@ -18,9 +18,6 @@ const EntryRow = (props) => {
       <td className="border border-1 border-black p-2">{index + 1}</td>
       <td className="border border-1 border-black p-2">{entry.id}</td>
       <td className="border border-1 border-black p-2">{entry.ticket_id}</td>
-      <td className="border border-1 border-black p-2">
-        {entry.fk_user_event}
-      </td>
       <td className="border border-1 border-black p-2">
         {entry.first_name + " " + entry.last_name}
       </td>
@@ -39,4 +36,4 @@ const EntryRow = (props) => {
   );
 };
 
-export default EntryRow;
+export default VoteRow;

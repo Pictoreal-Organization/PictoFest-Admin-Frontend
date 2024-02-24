@@ -34,7 +34,6 @@ const EntryRow = (props) => {
           <FaImage />
         </Link>
       </td>
-      <td className="border border-1 border-black p-2">{entry.votes}</td>
     </tr>
   );
 };

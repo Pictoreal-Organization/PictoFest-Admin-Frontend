@@ -1,10 +1,23 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import Dashboard from "../components/Dashboard";
+
 const Home = () => {
+  const [theme, setTheme] = useState("light");
+
+  // Apply the theme to the body class
+  useEffect(() => {
+    document.documentElement.className = theme === "dark" ? "dark" : "";
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
+
   return (
-    <main className="flex flex-col justify-center items-center w-4/5 gap-5">
-      <h1 className="text-4xl">Welcome To Dashboard</h1>
-      <h3 className="text-3xl">Explore Sidebar</h3>
+    <main className="w-full">
+      <Dashboard />
     </main>
   );
 };

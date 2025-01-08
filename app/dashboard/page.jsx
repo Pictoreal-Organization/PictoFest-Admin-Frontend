@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Dashboard from "../components/Dashboard";
+import EventStatusAnalytics from "../components/EventStatusAnalytics";
 
 const Home = () => {
   const [theme, setTheme] = useState("light");
@@ -18,6 +19,7 @@ const Home = () => {
   return (
     <main className="w-full">
       <Dashboard />
+      {/* <EventStatusAnalytics /> */}
     </main>
   );
 };

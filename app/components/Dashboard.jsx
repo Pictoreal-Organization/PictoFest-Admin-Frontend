@@ -28,6 +28,7 @@ ChartJS.register(
 
 const Dashboard = () => {
   const [theme, setTheme] = useState("light");
+  const [loading, setLoading] = useState(true);
   const [analytics, setAnalytics] = useState({
     totalUsers: 0,
     totalEvents: 0,
@@ -42,6 +43,7 @@ const Dashboard = () => {
   });
 
   const fetchAnalytics = async () => {
+    setLoading(true);
     try {
       const [
         totalUsers,
@@ -85,11 +87,15 @@ const Dashboard = () => {
     } catch (err) {
       toast.error("Failed to fetch analytics data.");
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    toast.success(`Switched to ${newTheme} mode`);
   };
 
   useEffect(() => {
@@ -97,48 +103,51 @@ const Dashboard = () => {
     fetchAnalytics();
   }, [theme]);
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        <div className="spinner">Loading...</div>{" "}
+        {/* Add your spinner component */}
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full px-6 py-8 max-w-screen-xl mx-auto">
+    <div className="w-full px-6 py-4 max-w-screen-xl mx-auto">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-semibold text-gray-900">
-          Dashboard Analytics
-        </h1>
+        {/* Add any top header or buttons here */}
       </div>
 
+      {/* Overview Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 mb-12">
-        {/* Overview Cards */}
-        {[{
-          label: "Total Users",
-          value: analytics.totalUsers,
-          icon: "👤"
-        }, {
-          label: "Total Events",
-          value: analytics.totalEvents,
-          icon: "📅"
-        }, {
-          label: "Total Registrations",
-          value: analytics.totalRegistrations,
-          icon: "📝"
-        }, {
-          label: "Total Picsoreels",
-          value: analytics.totalPicsoreels,
-          icon: "🎞️"
-        }, {
-          label: "Total Gallery Entries",
-          value: analytics.totalGallery,
-          icon: "📸"
-        }, {
-          label: "Total Votes",
-          value: analytics.totalVotes,
-          icon: "🗳️"
-        }, {
-          label: "Transaction Amount",
-          value: `₹${analytics.transactionAmount}`,
-          icon: "💰"
-        }].map((item, idx) => (
+        {[
+          { label: "Total Users", value: analytics.totalUsers, icon: "👤" },
+          { label: "Total Events", value: analytics.totalEvents, icon: "📅" },
+          {
+            label: "Total Registrations",
+            value: analytics.totalRegistrations,
+            icon: "📝",
+          },
+          {
+            label: "Total Picsoreels",
+            value: analytics.totalPicsoreels,
+            icon: "🎞️",
+          },
+          {
+            label: "Total Gallery Entries",
+            value: analytics.totalGallery,
+            icon: "📸",
+          },
+          { label: "Total Votes", value: analytics.totalVotes, icon: "🗳️" },
+          {
+            label: "Transaction Amount",
+            value: `₹${analytics.transactionAmount}`,
+            icon: "💰",
+          },
+        ].map((item, idx) => (
           <div
             key={idx}
-            className="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-md text-gray-800 dark:text-white flex items-center justify-between space-x-4 hover:shadow-xl transform transition-all duration-300"
+            className="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-md text-gray-800 dark:text-white flex items-center justify-between space-x-4 hover:scale-105 hover:shadow-xl transition-all duration-300 transform"
           >
             <div>
               <h2 className="text-xl font-semibold">{item.label}</h2>
@@ -147,9 +156,17 @@ const Dashboard = () => {
             <div className="text-3xl">{item.icon}</div>
           </div>
         ))}
-        
-        {/* College Type Pie Chart */}
-        <div className="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-md text-gray-800 dark:text-white flex items-center justify-center hover:shadow-xl">
+      </div>
+
+      {/* Charts Section (Side by Side) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        {/* Pie Chart */}
+
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300 transform">
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+            PICT / NON-PICT
+          </h2>
+          <div className="w-1/2 flex justify-center items-center">
           <Pie
             data={{
               labels: ["PICT", "NON-PICT"],
@@ -166,18 +183,24 @@ const Dashboard = () => {
             options={{
               responsive: true,
               plugins: {
+                tooltip: {
+                  callbacks: {
+                    label: (tooltipItem) => {
+                      return `Count: ${tooltipItem.raw}`;
+                    },
+                  },
+                },
                 legend: {
                   position: "top",
                 },
               },
             }}
           />
+          </div>
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 gap-10">
         {/* Daily Transactions Line Chart */}
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300 transform">
           <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
             Daily Transactions
           </h2>
@@ -190,18 +213,18 @@ const Dashboard = () => {
                   data: analytics.dailyTransactions.map(
                     (entry) => entry.amount
                   ),
-                  borderColor: "#2196f3", // Blue color for amount
-                  backgroundColor: "rgba(33, 150, 243, 0.2)", // Light blue fill
-                  tension: 0.4, // Smooth lines
-                  fill: true, // To fill the area under the line
+                  borderColor: "#2196f3",
+                  backgroundColor: "rgba(33, 150, 243, 0.2)",
+                  tension: 0.4,
+                  fill: true,
                 },
                 {
                   label: "Transaction Count",
                   data: analytics.dailyTransactions.map((entry) => entry.count),
-                  borderColor: "#4caf50", // Green color for transaction count
-                  backgroundColor: "rgba(76, 175, 80, 0.2)", // Light green fill
-                  tension: 0.4, // Smooth lines
-                  fill: true, // To fill the area under the line
+                  borderColor: "#4caf50",
+                  backgroundColor: "rgba(76, 175, 80, 0.2)",
+                  tension: 0.4,
+                  fill: true,
                 },
               ],
             }}
@@ -218,14 +241,14 @@ const Dashboard = () => {
                     display: true,
                     text: "Amount (₹) / Transaction Count",
                   },
-                  beginAtZero: true, // Ensure the graph starts from 0 on the y-axis
+                  beginAtZero: true,
                 },
               },
               plugins: {
                 legend: {
                   position: "top",
                   labels: {
-                    usePointStyle: true, // For a cleaner legend with icons
+                    usePointStyle: true,
                   },
                 },
               },

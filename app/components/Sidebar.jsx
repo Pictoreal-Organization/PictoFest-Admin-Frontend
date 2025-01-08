@@ -31,79 +31,65 @@ const SideBar = () => {
   };
 
   return (
-    <div className="h-screen p-4 bg-gray-800 sticky left-0 top-0">
-      <ul className="space-y-2 font-bold">
+    <div className="h-screen p-4 bg-gray-800 sticky left-0 top-0 shadow-lg">
+      <ul className="space-y-4 font-bold">
+        {/* Home Menu */}
         <li>
           <Link
             href="/dashboard"
-            className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
-            style={
-              pathname === "/dashboard"
-                ? {
-                    backgroundColor: "rgb(55,65,81)",
-                  }
-                : {}
-            }
+            className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard" ? "bg-gray-700" : ""}`}
           >
-            <span className="flex-1 mx-3 whitespace-nowra">Home</span>
+            <span className="flex-1 mx-3 whitespace-nowrap">Home</span>
+          </Link>
+        </li>
+
+        {/* Picsoreel and Leaderboard Menu */}
+        <li>
+          <Link
+            href="/dashboard/picsoreel"
+            className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard/picsoreel" ? "bg-gray-700" : ""}`}
+          >
+            <span className="flex-1 mx-3 whitespace-nowrap">Picsoreel Analytics</span>
           </Link>
         </li>
         <li>
           <Link
-            href="/dashboard/users"
-            className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
-            style={
-              pathname === "/dashboard/users"
-                ? {
-                    backgroundColor: "rgb(55,65,81)",
-                  }
-                : {}
-            }
+            href="/dashboard/leaderboard"
+            className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard/leaderboard" ? "bg-gray-700" : ""}`}
           >
-            <span className="flex-1 mx-3 whitespace-nowra">Users</span>
+            <span className="flex-1 mx-3 whitespace-nowrap">Leaderboard</span>
+          </Link>
+        </li>
+
+        {/* Other Menus */}
+        <li>
+          <Link
+            href="/dashboard/users"
+            className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard/users" ? "bg-gray-700" : ""}`}
+          >
+            <span className="flex-1 mx-3 whitespace-nowrap">Users</span>
           </Link>
         </li>
         <li>
           <Link
             href="/dashboard/events"
-            className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
-            style={
-              pathname === "/dashboard/events"
-                ? {
-                    backgroundColor: "rgb(55,65,81)",
-                  }
-                : {}
-            }
+            className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard/events" ? "bg-gray-700" : ""}`}
           >
-            <span className="flex-1 mx-3 whitespace-nowra">Events</span>
+            <span className="flex-1 mx-3 whitespace-nowrap">Events</span>
           </Link>
         </li>
         <li>
           <Link
             href="/dashboard/payments"
-            className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
-            style={
-              pathname === "/dashboard/payments"
-                ? {
-                    backgroundColor: "rgb(55,65,81)",
-                  }
-                : {}
-            }
+            className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard/payments" ? "bg-gray-700" : ""}`}
           >
-            <span className="flex-1 mx-3 whitespace-nowra">Payments</span>
+            <span className="flex-1 mx-3 whitespace-nowrap">Payments</span>
           </Link>
         </li>
         <li>
           <Link
             href="/dashboard/images"
-            className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
-            style={
-              pathname === "/dashboard/images"
-                ? {
-                    backgroundColor: "rgb(55,65,81)",
-                  }
-                : {}
-            }
+            className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard/images" ? "bg-gray-700" : ""}`}
           >
             <span className="flex-1 mx-3 whitespace-nowrap">Images</span>
           </Link>
@@ -111,57 +97,35 @@ const SideBar = () => {
         <li>
           <Link
             href="/dashboard/physubmission"
-            className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
-            style={
-              pathname === "/dashboard/physubmission"
-                ? {
-                    backgroundColor: "rgb(55,65,81)",
-                  }
-                : {}
-            }
+            className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard/physubmission" ? "bg-gray-700" : ""}`}
           >
-            <span className="flex-1 mx-3 whitespace-nowrap">
-              Physical Submission
-            </span>
+            <span className="flex-1 mx-3 whitespace-nowrap">Physical Submission</span>
           </Link>
         </li>
         <li>
           <Link
             href="/dashboard/entries"
-            className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
-            style={
-              pathname === "/dashboard/entries"
-                ? {
-                    backgroundColor: "rgb(55,65,81)",
-                  }
-                : {}
-            }
+            className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard/entries" ? "bg-gray-700" : ""}`}
           >
-            <span className="flex-1 mx-3 whitespace-nowrap">
-              Entries
-            </span>
+            <span className="flex-1 mx-3 whitespace-nowrap">Entries</span>
           </Link>
         </li>
         <li>
           <Link
             href="/dashboard/votes"
-            className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
-            style={
-              pathname === "/dashboard/votes"
-                ? {
-                    backgroundColor: "rgb(55,65,81)",
-                  }
-                : {}
-            }
+            className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard/votes" ? "bg-gray-700" : ""}`}
           >
-            <span className="flex-1 mx-3 whitespace-nowrap">
-              Votes
-            </span>
+            <span className="flex-1 mx-3 whitespace-nowrap">Votes</span>
           </Link>
         </li>
+
+        {/* Logout Button */}
         <li>
-          <div className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group px-5">
-            <button className="w-full text-left" onClick={handleLogout}>
+          <div className="flex items-center p-3 rounded-lg bg-red-600 hover:bg-red-700 group">
+            <button 
+              className="w-full text-left text-white font-semibold px-4 py-2 rounded-lg"
+              onClick={handleLogout}
+            >
               Logout
             </button>
           </div>

@@ -29,20 +29,12 @@ ChartJS.register(
 
 const Leaderboard = () => {
   const [entries, setEntries] = useState([]);
-  const [category, setCategory] = useState("");
   const [votesByCategory, setVotesByCategory] = useState([]);
-  const [selectedCategoryEntries, setSelectedCategoryEntries] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("PS");
 
   const getEntries = async () => {
     try {
-      let response;
-      if (category) {
-        response = await api.get(`/dashboard/votedentries/${category}`);
-      } else {
-        response = await api.get(`/dashboard/votedentries/`);
-      }
-
-      // Limiting the entries to the first 5 per category
+      const response = await api.get(`/dashboard/leaderboard/`);
       setEntries(response.data.data);
     } catch (err) {
       toast.error(err.response.data.message);
@@ -63,45 +55,14 @@ const Leaderboard = () => {
   useEffect(() => {
     getEntries();
     getVotesByCategory();
-  }, [category]);
-
-  // Group entries by category
-  const groupedEntries = entries.reduce((acc, entry) => {
-    const cat = entry.category || "Other";
-    if (!acc[cat]) acc[cat] = [];
-    acc[cat].push(entry);
-    return acc;
-  }, {});
-
-  // Prepare chartData for the leaderboard section based on the selected category
-  const chartData = {
-    labels: [],
-    datasets: [
-      {
-        label: "Votes",
-        data: [],
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderColor: "rgba(75, 192, 192, 1)",
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  if (category && groupedEntries[category]) {
-    const topEntries = groupedEntries[category].slice(0, 5); // Take the first 5 entries
-    chartData.labels = topEntries.map(
-      (entry) => `${entry.first_name} ${entry.last_name}`
-    );
-    chartData.datasets[0].data = topEntries.map((entry) => entry.votes);
-    setSelectedCategoryEntries(topEntries);
-  }
+  }, []);
 
   // Prepare data for the pie chart
   const pieChartData = {
-    labels: votesByCategory.map((entry) => entry.category), // Category names
+    labels: votesByCategory.map((entry) => entry.event_code),
     datasets: [
       {
-        data: votesByCategory.map((entry) => entry.vote_count), // Vote counts for each category
+        data: votesByCategory.map((entry) => entry.vote_count),
         backgroundColor: [
           "#FF9999",
           "#66B3FF",
@@ -116,9 +77,67 @@ const Leaderboard = () => {
           "#C71585",
           "#B0E0E6",
           "#20B2AA",
-        ], // Customize colors
+        ],
       },
     ],
+  };
+
+  // Prepare bar chart data for the selected category
+  const getBarChartData = (categoryCode) => {
+    const categoryData = entries[categoryCode] || [];
+    const top5 = categoryData.slice(0, 5);
+
+    return {
+      labels: top5.map((entry) => `${entry.first_name} ${entry.last_name}`),
+      datasets: [
+        {
+          label: "Votes",
+          data: top5.map((entry) => parseInt(entry.vote_count)),
+          backgroundColor: "rgba(75, 192, 192, 0.2)",
+          borderColor: "rgba(75, 192, 192, 1)",
+          borderWidth: 1,
+        },
+      ],
+    };
+  };
+
+  const barChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Top 5 Contestants",
+        font: {
+          size: 16,
+          weight: "bold",
+        },
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: "Number of Votes",
+        },
+      },
+      x: {
+        title: {
+          display: true,
+          text: "Contestants",
+        },
+      },
+    },
+  };
+
+  const categories = {
+    PS: "PAINTING/SKETCHING",
+    DA: "DIGITAL ART",
+    PH: "PHOTOGRAPHY",
+    TH: "THEME CATEGORY",
   };
 
   return (
@@ -159,28 +178,29 @@ const Leaderboard = () => {
             Leaderboard
           </h2>
 
-          {/* Dropdown for selecting category */}
+          {/* Category Selection */}
           <div className="mb-6">
             <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
               className="px-4 py-2 bg-indigo-600 text-white rounded-lg focus:outline-none ring-2 ring-indigo-500 focus:ring-2 focus:ring-indigo-500 w-full"
             >
-              <option value="PS">PAINTING/SKETCHING</option>
-              <option value="DA">DIGITAL ART</option>
-              <option value="PH">PHOTOGRAPHY</option>
-              <option value="TH">THEME CATEGORY</option>
+              {Object.entries(categories).map(([code, name]) => (
+                <option key={code} value={code}>
+                  {name}
+                </option>
+              ))}
             </select>
           </div>
 
-          {/* Display Top 5 Entries for the Selected Category */}
-          {selectedCategoryEntries.length > 0 && (
+          {/* Display Top 5 Entries for Selected Category */}
+          {entries[selectedCategory] && (
             <div className="mb-6">
               <h3 className="text-lg font-semibold text-gray-700 mb-4">
-                Top 5 Entries in {category}
+                Top 5 Entries in {categories[selectedCategory]}
               </h3>
               <ul className="space-y-3">
-                {selectedCategoryEntries.map((entry, index) => (
+                {entries[selectedCategory].slice(0, 5).map((entry, index) => (
                   <li
                     key={index}
                     className="flex justify-between items-center text-gray-700 hover:bg-gray-100 p-2 rounded-lg transition duration-300"
@@ -188,31 +208,16 @@ const Leaderboard = () => {
                     <span>
                       {entry.first_name} {entry.last_name}
                     </span>
-                    <span>{entry.votes} votes</span>
+                    <span>{entry.vote_count} votes</span>
                   </li>
                 ))}
               </ul>
             </div>
           )}
 
-          {/* Display Bar Chart for the selected category */}
-          {category && (
-            <Bar
-              data={chartData}
-              options={{
-                responsive: true,
-                plugins: {
-                  title: {
-                    display: true,
-                    text: "Votes for Entries",
-                    font: {
-                      size: 18,
-                      weight: "bold",
-                    },
-                  },
-                },
-              }}
-            />
+          {/* Bar Chart */}
+          {entries[selectedCategory] && (
+            <Bar data={getBarChartData(selectedCategory)} options={barChartOptions} />
           )}
         </div>
       </div>

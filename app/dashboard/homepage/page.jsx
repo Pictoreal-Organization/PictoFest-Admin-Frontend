@@ -15,14 +15,6 @@ import {
 } from "recharts"
 import { CalendarDays, Download, Users, Vote, Image, FileImage, IndianRupee, Moon, Sun } from 'lucide-react'
 
-<<<<<<< HEAD
-=======
-// import { Button } from "@/components/ui/button"
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-// import { Switch } from "@/components/ui/switch"
-
->>>>>>> 4589d5744fe0e959794ff74b2be1a39c1b85c81d
-// Sample data - replace with real data
 const userData = [
   { name: "PICT", value: 650 },
   { name: "NON-PICT", value: 350 },

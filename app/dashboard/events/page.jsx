@@ -48,7 +48,7 @@ const Events = () => {
           <option value="">Event Category</option>
           <option value="PICSOREEL">PICSOREEL</option>
           <option value="WORKSHOP">WORKSHOP</option>
-          <option value="EVENT">EVENT</option>
+          <option value="EVENTS">EVENTS</option>
         </select>
       </div>
       <table className="w-full text-center border-collapse my-5">

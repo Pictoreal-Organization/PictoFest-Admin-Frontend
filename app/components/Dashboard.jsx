@@ -139,11 +139,11 @@ const Dashboard = () => {
             icon: "📸",
           },
           { label: "Total Votes", value: analytics.totalVotes, icon: "🗳️" },
-          {
-            label: "Transaction Amount",
-            value: `₹${analytics.transactionAmount}`,
-            icon: "💰",
-          },
+          // {
+          //   label: "Transaction Amount",
+          //   value: `₹${analytics.transactionAmount}`,
+          //   icon: "💰",
+          // },
         ].map((item, idx) => (
           <div
             key={idx}

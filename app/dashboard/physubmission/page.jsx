@@ -62,6 +62,7 @@ const Physubmission = () => {
               Image Upload Status
             </th>
             <th className="border border-1 border-black p-2">Image Link</th>
+            <th className="border border-1 border-black p-2">Photocopy</th>
             <th className="border border-1 border-black p-2">
               Physical Submission
             </th>
@@ -72,7 +73,7 @@ const Physubmission = () => {
             userEvents
               .filter((userEvent) => {
                 if (query === "") {
-                  return userEvent;
+                  return true;
                 } else if (
                   userEvent.name.toLowerCase().includes(query.toLowerCase()) ||
                   userEvent.first_name
@@ -82,8 +83,13 @@ const Physubmission = () => {
                     .toLowerCase()
                     .includes(query.toLowerCase())
                 ) {
-                  return userEvent;
+                  return true;
                 }
+                return false;
+              })
+              .sort((a, b) => {
+                // Put photocopy_needed = true first
+                return (b.photocopy_needed === true) - (a.photocopy_needed === true);
               })
               .map((userEvent, index) => (
                 <PhysubmissionRow
@@ -94,6 +100,7 @@ const Physubmission = () => {
                 />
               ))}
         </tbody>
+
       </table>
     </div>
   );

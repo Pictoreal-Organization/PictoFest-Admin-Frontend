@@ -79,7 +79,7 @@ const UserEventRow = (props) => {
           <Link
             className="flex justify-center"
             target="_blank"
-            href={trimString(userEvent.image_link, 2) + "3D"}
+            href={userEvent.image_link}
           >
             <FaImage />
           </Link>

@@ -43,6 +43,15 @@ const SideBar = () => {
           </Link>
         </li>
 
+        <li>
+          <Link
+            href="/dashboard/earlybird"
+            className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard" ? "bg-gray-700" : ""}`}
+          >
+            <span className="flex-1 mx-3 whitespace-nowrap">Early Bird</span>
+          </Link>
+        </li>
+
         {/* Picsoreel and Leaderboard Menu */}
         <li>
           <Link

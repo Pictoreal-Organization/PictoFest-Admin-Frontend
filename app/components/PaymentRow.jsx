@@ -54,7 +54,7 @@ const PaymentRow = (props) => {
 
   return (
     <tr>
-      <td className="border border-1 border-black p-2">{index+1}</td>
+      <td className="border border-1 border-black p-2">{index + 1}</td>
       <td className="border border-1 border-black p-2">{payment.id}</td>
       <td className="border border-1 border-black p-2">
         {payment.first_name + " " + payment.last_name}
@@ -83,6 +83,10 @@ const PaymentRow = (props) => {
           </div>
         )}
       </td>
+      <td className="border p-2">
+        {payment.early_code || "NA"}
+      </td>
+
     </tr>
   );
 };

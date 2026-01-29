@@ -58,6 +58,7 @@ const Payments = () => {
             <th className="border border-1 border-black p-2">Name</th>
             <th className="border border-1 border-black p-2">Transaction Id</th>
             <th className="border border-1 border-black p-2">Amount</th>
+            <th className="border border-1 border-black p-2">EB Code</th>
             <th className="border border-1 border-black p-2">
               Approval Status
             </th>

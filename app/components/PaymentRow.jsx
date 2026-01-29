@@ -63,6 +63,9 @@ const PaymentRow = (props) => {
         {payment.transaction_id}
       </td>
       <td className="border border-1 border-black p-2">{payment.amount}</td>
+       <td className="border p-2">
+        {payment.early_code || "NA"}
+      </td>
       <td className="border border-1 border-black p-2">
         {payment.status !== "PENDING" ? (
           payment.status
@@ -83,10 +86,6 @@ const PaymentRow = (props) => {
           </div>
         )}
       </td>
-      <td className="border p-2">
-        {payment.early_code || "NA"}
-      </td>
-
     </tr>
   );
 };

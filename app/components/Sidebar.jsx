@@ -12,7 +12,7 @@ const SideBar = () => {
   const { adminAuthState, setAdminAuthInfo } = useAuth();
   const pathname = usePathname();
 
-  const ALLOWED_USERNAMES = ["techheadsv28", "ocsv28", "pictofest"];
+  const ALLOWED_USERNAMES = ["techheadsv28", "ocsv28", "pictofest", "besv28"];
   const hasFullAccess = ALLOWED_USERNAMES.includes(adminAuthState.admin?.username);
 
   const handleLogout = async () => {

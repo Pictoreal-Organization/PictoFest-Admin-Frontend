@@ -6,15 +6,6 @@ import { FaImage } from "react-icons/fa";
 const PhysubmissionRow = (props) => {
   const { userEvent, setUserEvents, index } = props;
 
-  const trimString = (str, length) => {
-    if (str.length <= length * 2) {
-      return str;
-    }
-
-    const trimmedLength = str.length - length * 2;
-    return str.substring(length, trimmedLength);
-  };
-
   const handleApprove = async (e) => {
     e.preventDefault();
 
@@ -55,7 +46,7 @@ const PhysubmissionRow = (props) => {
           <Link
             className="flex justify-center"
             target="_blank"
-            href={trimString(userEvent.image_link, 2) + "3D"}
+            href={userEvent.image_link}
           >
             <FaImage />
           </Link>
@@ -63,6 +54,7 @@ const PhysubmissionRow = (props) => {
           "NA"
         )}
       </td>
+
       <td className="border border-1 border-black p-2 text-center">
         {userEvent.photocopy_needed ? "Yes" : "No"}
       </td>

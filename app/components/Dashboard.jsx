@@ -12,6 +12,7 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
+  Filler,
 } from "chart.js";
 import { Line, Pie } from "react-chartjs-2";
 
@@ -23,7 +24,8 @@ ChartJS.register(
   LineElement,
   CategoryScale,
   LinearScale,
-  PointElement
+  PointElement,
+  Filler
 );
 
 const Dashboard = () => {
@@ -167,35 +169,35 @@ const Dashboard = () => {
             PICT / NON-PICT
           </h2>
           <div className="w-1/2 flex justify-center items-center">
-          <Pie
-            data={{
-              labels: ["PICT", "NON-PICT"],
-              datasets: [
-                {
-                  data: [
-                    analytics.collegeTypeChart.PICT,
-                    analytics.collegeTypeChart.NON_PICT,
-                  ],
-                  backgroundColor: ["#4caf50", "#ff9800"],
-                },
-              ],
-            }}
-            options={{
-              responsive: true,
-              plugins: {
-                tooltip: {
-                  callbacks: {
-                    label: (tooltipItem) => {
-                      return `Count: ${tooltipItem.raw}`;
+            <Pie
+              data={{
+                labels: ["PICT", "NON-PICT"],
+                datasets: [
+                  {
+                    data: [
+                      analytics.collegeTypeChart.PICT,
+                      analytics.collegeTypeChart.NON_PICT,
+                    ],
+                    backgroundColor: ["#4caf50", "#ff9800"],
+                  },
+                ],
+              }}
+              options={{
+                responsive: true,
+                plugins: {
+                  tooltip: {
+                    callbacks: {
+                      label: (tooltipItem) => {
+                        return `Count: ${tooltipItem.raw}`;
+                      },
                     },
                   },
+                  legend: {
+                    position: "top",
+                  },
                 },
-                legend: {
-                  position: "top",
-                },
-              },
-            }}
-          />
+              }}
+            />
           </div>
         </div>
 

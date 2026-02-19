@@ -37,6 +37,8 @@ const Leaderboard = () => {
     try {
       // const response = await api.get(`/dashboard/leaderboard/`);
       const response = await publicApi.get(`/dashboard/leaderboard/`);
+      console.log("Leaderboard Full Response:", response);
+    console.log("Leaderboard Data:", response.data);
       setEntries(response.data.data);
     } catch (err) {
       toast.error(err.response.data.message);
@@ -48,6 +50,9 @@ const Leaderboard = () => {
     try {
       // const response = await api.get("/dashboard/votesByCategory");
       const response = await publicApi.get("/dashboard/votesByCategory");
+      
+    console.log("Votes Full Response:", response);
+    console.log("Votes Data:", response.data);
       setVotesByCategory(response.data.data);
     } catch (err) {
       toast.error(err.response.data.message);

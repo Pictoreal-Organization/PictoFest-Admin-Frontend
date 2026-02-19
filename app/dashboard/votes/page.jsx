@@ -46,10 +46,11 @@ const Entries = () => {
           onChange={(e) => setCategory(e.target.value)}
         >
           <option value="">Entry Category</option>
-          <option value="PS">PAINTING/SKETCHING</option>
-          <option value="DA">DIGITAL ART</option>
+          <option value="SK">SKETCHING</option>
+          <option value="PA">PAINTING</option>
           <option value="PH">PHOTOGRAPHY</option>
-          <option value="TH">THEME CATEGORY</option>
+          <option value="SS">SCRIPT AND STYLES</option>
+          <option value="TC">THEMED CATEGORY</option>
         </select>
       </div>
       <table className="w-full text-center border-collapse my-5">

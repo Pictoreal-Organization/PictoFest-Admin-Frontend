@@ -2,7 +2,8 @@
 
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import api from "@/app/api.js";
+// import api from "@/app/api.js";
+import publicApi from "@/app/publicApi";
 import { Bar } from "react-chartjs-2";
 import { Pie } from "react-chartjs-2";
 import {
@@ -34,7 +35,8 @@ const Leaderboard = () => {
 
   const getEntries = async () => {
     try {
-      const response = await api.get(`/dashboard/leaderboard/`);
+      // const response = await api.get(`/dashboard/leaderboard/`);
+      const response = await publicApi.get(`/dashboard/leaderboard/`);
       setEntries(response.data.data);
     } catch (err) {
       toast.error(err.response.data.message);
@@ -44,7 +46,8 @@ const Leaderboard = () => {
 
   const getVotesByCategory = async () => {
     try {
-      const response = await api.get("/dashboard/votesByCategory");
+      // const response = await api.get("/dashboard/votesByCategory");
+      const response = await publicApi.get("/dashboard/votesByCategory");
       setVotesByCategory(response.data.data);
     } catch (err) {
       toast.error(err.response.data.message);
@@ -134,10 +137,11 @@ const Leaderboard = () => {
   };
 
   const categories = {
-    PS: "PAINTING/SKETCHING",
-    DA: "DIGITAL ART",
+    SK: "SKETCHING",
+    PA: "PAINTING",
     PH: "PHOTOGRAPHY",
-    TH: "THEME CATEGORY",
+    SS: "SCRIPT AND STYLES",
+    TH: "THEMED CATEGORY",
   };
 
   return (

@@ -146,7 +146,7 @@ const Leaderboard = () => {
     PA: "PAINTING",
     PH: "PHOTOGRAPHY",
     SS: "SCRIPT AND STYLES",
-    TH: "THEMED CATEGORY",
+    TC: "THEMED CATEGORY",
   };
 
   return (

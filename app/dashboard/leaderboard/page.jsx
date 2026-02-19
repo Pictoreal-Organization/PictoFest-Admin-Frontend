@@ -31,7 +31,7 @@ ChartJS.register(
 const Leaderboard = () => {
   const [entries, setEntries] = useState([]);
   const [votesByCategory, setVotesByCategory] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("PS");
+  const [selectedCategory, setSelectedCategory] = useState("SK");
 
   const getEntries = async () => {
     try {

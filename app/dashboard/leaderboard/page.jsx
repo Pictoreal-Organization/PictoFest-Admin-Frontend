@@ -2,8 +2,8 @@
 
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-// import api from "@/app/api.js";
-import publicApi from "@/app/publicApi";
+import api from "@/app/api.js";
+// import publicApi from "@/app/publicApi";
 import { Bar } from "react-chartjs-2";
 import { Pie } from "react-chartjs-2";
 import {
@@ -35,8 +35,8 @@ const Leaderboard = () => {
 
   const getEntries = async () => {
     try {
-      // const response = await api.get(`/dashboard/leaderboard/`);
-      const response = await publicApi.get(`/dashboard/leaderboard/`);
+      const response = await api.get(`/dashboard/leaderboard/`);
+      // const response = await publicApi.get(`/dashboard/leaderboard/`);
       console.log("Leaderboard Full Response:", response);
     console.log("Leaderboard Data:", response.data);
       setEntries(response.data.data);
@@ -48,8 +48,8 @@ const Leaderboard = () => {
 
   const getVotesByCategory = async () => {
     try {
-      // const response = await api.get("/dashboard/votesByCategory");
-      const response = await publicApi.get("/dashboard/votesByCategory");
+      const response = await api.get("/dashboard/votesByCategory");
+      // const response = await publicApi.get("/dashboard/votesByCategory");
       
     console.log("Votes Full Response:", response);
     console.log("Votes Data:", response.data);

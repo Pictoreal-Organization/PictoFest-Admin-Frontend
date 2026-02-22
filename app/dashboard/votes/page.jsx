@@ -2,8 +2,8 @@
 
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-// import api from "@/app/api.js";
-import publicApi from "@/app/publicApi";
+import api from "@/app/api.js";
+// import publicApi from "@/app/publicApi";
 import VoteRow from "@/app/components/VoteRow.jsx";
 
 const Entries = () => {
@@ -15,11 +15,10 @@ const Entries = () => {
     try {
       let response;
       if (category) {
-        response = await publicApi.get(`/dashboard/votedentries/${category}`);
+        response = await api.get(`/dashboard/votedentries/${category}`);
       } else {
-        response = await publicApi.get(`/dashboard/votedentries/`);
+        response = await api.get(`/dashboard/votedentries/`);
       }
-
       setEntries(response.data.data);
     } catch (err) {
       toast.error(err.response.data.message);

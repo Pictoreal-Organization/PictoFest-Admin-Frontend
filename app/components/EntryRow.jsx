@@ -29,7 +29,7 @@ const EntryRow = (props) => {
         <Link
           className="flex justify-center"
           target="_blank"
-          href={trimString(entry.image_link, 2) + "3D"}
+          href={entry.image_link}
         >
           <FaImage />
         </Link>

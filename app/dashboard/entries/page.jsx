@@ -30,6 +30,60 @@ const Entries = () => {
     getEntries();
   }, [category]);
 
+  const downloadCSV = () => {
+    const filtered = entries.filter((entry) => {
+      if (query === "") return true;
+
+      return (
+        entry.first_name.toLowerCase().includes(query.toLowerCase()) ||
+        entry.last_name.toLowerCase().includes(query.toLowerCase()) ||
+        String(entry.fk_user_event)
+          .toLowerCase()
+          .includes(query.toLowerCase()) ||
+        entry.ticket_id.toLowerCase().includes(query.toLowerCase())
+      );
+    });
+
+    if (filtered.length === 0) {
+      alert("No data available to download");
+      return;
+    }
+
+    const headers = [
+      "Sr No",
+      "Entry Id",
+      "Ticket Id",
+      "User Event Id",
+      "User Name",
+      "Category",
+      "Image Link"
+    ];
+
+    const rows = filtered.map((entry, index) => [
+      index + 1,
+      entry.id,
+      entry.ticket_id,
+      entry.fk_user_event,
+      `${entry.first_name} ${entry.last_name}`,
+      entry.event_code,
+      entry.image_link
+    ]);
+
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      [headers, ...rows]
+        .map(row => row.map(item => `"${item}"`).join(","))
+        .join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.href = encodedUri;
+    link.download = "Entries_Data.csv";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="w-4/5 mx-5">
       <div className="flex justify-between items-center my-5">
@@ -52,6 +106,14 @@ const Entries = () => {
           <option value="SS">SCRIPT AND STYLES</option>
           <option value="TC">THEMED CATEGORY</option>
         </select>
+      </div>
+      <div className="flex justify-center my-4">
+        <button
+          onClick={downloadCSV}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+        >
+          Download CSV
+        </button>
       </div>
       <table className="w-full text-center border-collapse my-5">
         <thead>

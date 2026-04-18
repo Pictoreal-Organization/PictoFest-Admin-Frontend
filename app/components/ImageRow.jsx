@@ -1,7 +1,7 @@
 import api from "@/app/api";
 import { toast } from "sonner";
 import Link from "next/link";
-import { FaImage } from "react-icons/fa";
+import { FaImage, FaDownload } from "react-icons/fa";
 
 const UserEventRow = (props) => {
   const { userEvent, setUserEvents, index } = props;
@@ -63,9 +63,32 @@ const UserEventRow = (props) => {
     }
   };
 
+  const handleDownload = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api.get(
+        `/dashboard/download?imageUrl=${userEvent.image_link}`,
+        {
+          responseType: "blob",
+        }
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      const fileName = userEvent.image_link.split("/").pop() || "download.jpg";
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err) {
+      console.error("Download failed", err);
+    }
+  };
+
   return (
     <tr>
-      <td className="border border-1 border-black p-2">{index+1}</td>
+      <td className="border border-1 border-black p-2">{index + 1}</td>
       <td className="border border-1 border-black p-2">{userEvent.id}</td>
       <td className="border border-1 border-black p-2">
         {userEvent.first_name + " " + userEvent.last_name}
@@ -76,13 +99,14 @@ const UserEventRow = (props) => {
       </td>
       <td className="border border-1 border-black p-2">
         {userEvent.image_uploaded ? (
-          <Link
-            className="flex justify-center"
-            target="_blank"
-            href={userEvent.image_link}
-          >
-            <FaImage />
-          </Link>
+          <div className="flex justify-center items-center gap-3">
+            <Link target="_blank" href={userEvent.image_link}>
+              <FaImage />
+            </Link>
+            <button onClick={handleDownload} title="Download Image">
+              <FaDownload />
+            </button>
+          </div>
         ) : (
           "NA"
         )}

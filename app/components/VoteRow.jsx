@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { FaImage } from "react-icons/fa";
+import { FaImage, FaDownload } from "react-icons/fa";
+import api from "@/app/api";
 
 const VoteRow = (props) => {
   const { entry, index } = props;
@@ -13,6 +14,29 @@ const VoteRow = (props) => {
     return str.substring(length, trimmedLength);
   };
 
+  const handleDownload = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api.get(
+        `/dashboard/download?imageUrl=${entry.image_link}`,
+        {
+          responseType: "blob",
+        }
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      const fileName = entry.image_link.split("/").pop() || "download.jpg";
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err) {
+      console.error("Download failed", err);
+    }
+  };
+
   return (
     <tr>
       <td className="border border-1 border-black p-2">{index + 1}</td>
@@ -23,13 +47,14 @@ const VoteRow = (props) => {
       </td>
       <td className="border border-1 border-black p-2">{entry.event_code}</td>
       <td className="border border-1 border-black p-2">
-        <Link
-          className="flex justify-center"
-          target="_blank"
-          href={entry.image_link}
-        >
-          <FaImage />
-        </Link>
+        <div className="flex justify-center items-center gap-3">
+          <Link target="_blank" href={entry.image_link}>
+            <FaImage />
+          </Link>
+          <button onClick={handleDownload} title="Download Image">
+            <FaDownload />
+          </button>
+        </div>
       </td>
       <td className="border border-1 border-black p-2">{entry.votes}</td>
     </tr>

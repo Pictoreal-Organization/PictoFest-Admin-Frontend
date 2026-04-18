@@ -3,6 +3,8 @@
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import api from "@/app/api.js";
+import { useAuth } from "@/app/context/Auth";
+import { useRouter } from "next/navigation";
 // import publicApi from "@/app/publicApi";
 import { Bar } from "react-chartjs-2";
 import { Pie } from "react-chartjs-2";
@@ -29,16 +31,28 @@ ChartJS.register(
 );
 
 const Leaderboard = () => {
+  const { adminAuthState } = useAuth();
+  const router = useRouter();
   const [entries, setEntries] = useState([]);
   const [votesByCategory, setVotesByCategory] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("SK");
+
+  const FULL_ACCESS_USERNAMES = ["techheadsv28", "ocsv28", "pictofest", "besv28"];
+  const username = adminAuthState.admin?.username;
+  const hasFullAccess = FULL_ACCESS_USERNAMES.includes(username);
+
+  useEffect(() => {
+    if (username && !hasFullAccess) {
+      router.push("/dashboard");
+    }
+  }, [username, hasFullAccess, router]);
 
   const getEntries = async () => {
     try {
       const response = await api.get(`/dashboard/leaderboard/`);
       // const response = await publicApi.get(`/dashboard/leaderboard/`);
       console.log("Leaderboard Full Response:", response);
-    console.log("Leaderboard Data:", response.data);
+      console.log("Leaderboard Data:", response.data);
       setEntries(response.data.data);
     } catch (err) {
       toast.error(err.response.data.message);
@@ -50,9 +64,9 @@ const Leaderboard = () => {
     try {
       const response = await api.get("/dashboard/votesByCategory");
       // const response = await publicApi.get("/dashboard/votesByCategory");
-      
-    console.log("Votes Full Response:", response);
-    console.log("Votes Data:", response.data);
+
+      console.log("Votes Full Response:", response);
+      console.log("Votes Data:", response.data);
       setVotesByCategory(response.data.data);
     } catch (err) {
       toast.error(err.response.data.message);

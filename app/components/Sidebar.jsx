@@ -12,8 +12,12 @@ const SideBar = () => {
   const { adminAuthState, setAdminAuthInfo } = useAuth();
   const pathname = usePathname();
 
-  const ALLOWED_USERNAMES = ["techheadsv28", "ocsv28", "pictofest", "besv28"];
-  const hasFullAccess = ALLOWED_USERNAMES.includes(adminAuthState.admin?.username);
+  const FULL_ACCESS_USERNAMES = ["techheadsv28", "ocsv28", "pictofest", "besv28"];
+  const RESTRICTED_ACCESS_USERNAMES = ["after_event_coords"];
+
+  const hasFullAccess = FULL_ACCESS_USERNAMES.includes(adminAuthState.admin?.username);
+  const hasRestrictedAccess = RESTRICTED_ACCESS_USERNAMES.includes(adminAuthState.admin?.username);
+  const hasDashboardAccess = hasFullAccess || hasRestrictedAccess;
 
   const handleLogout = async () => {
     try {
@@ -53,7 +57,7 @@ const SideBar = () => {
           </Link>
         </li>
 
-        {hasFullAccess && (
+        {hasDashboardAccess && (
           <>
             {/* Picsoreel and Leaderboard Menu */}
             <li>
@@ -64,14 +68,16 @@ const SideBar = () => {
                 <span className="flex-1 mx-3 whitespace-nowrap">Picsoreel Analytics</span>
               </Link>
             </li>
-            <li>
-              <Link
-                href="/dashboard/leaderboard"
-                className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard/leaderboard" ? "bg-gray-700" : ""}`}
-              >
-                <span className="flex-1 mx-3 whitespace-nowrap">Leaderboard</span>
-              </Link>
-            </li>
+            {hasFullAccess && (
+              <li>
+                <Link
+                  href="/dashboard/leaderboard"
+                  className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard/leaderboard" ? "bg-gray-700" : ""}`}
+                >
+                  <span className="flex-1 mx-3 whitespace-nowrap">Leaderboard</span>
+                </Link>
+              </li>
+            )}
 
             {/* Other Menus */}
             <li>
@@ -122,14 +128,16 @@ const SideBar = () => {
                 <span className="flex-1 mx-3 whitespace-nowrap">Entries</span>
               </Link>
             </li>
-            <li>
-              <Link
-                href="/dashboard/votes"
-                className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard/votes" ? "bg-gray-700" : ""}`}
-              >
-                <span className="flex-1 mx-3 whitespace-nowrap">Votes</span>
-              </Link>
-            </li>
+            {hasFullAccess && (
+              <li>
+                <Link
+                  href="/dashboard/votes"
+                  className={`flex items-center p-3 rounded-lg text-white hover:bg-gray-700 group ${pathname === "/dashboard/votes" ? "bg-gray-700" : ""}`}
+                >
+                  <span className="flex-1 mx-3 whitespace-nowrap">Votes</span>
+                </Link>
+              </li>
+            )}
           </>
         )}
 

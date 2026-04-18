@@ -3,13 +3,27 @@
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import api from "@/app/api.js";
+import { useAuth } from "@/app/context/Auth";
+import { useRouter } from "next/navigation";
 // import publicApi from "@/app/publicApi";
 import VoteRow from "@/app/components/VoteRow.jsx";
 
 const Entries = () => {
+  const { adminAuthState } = useAuth();
+  const router = useRouter();
   const [entries, setEntries] = useState([]);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
+
+  const FULL_ACCESS_USERNAMES = ["techheadsv28", "ocsv28", "pictofest", "besv28"];
+  const username = adminAuthState.admin?.username;
+  const hasFullAccess = FULL_ACCESS_USERNAMES.includes(username);
+
+  useEffect(() => {
+    if (username && !hasFullAccess) {
+      router.push("/dashboard");
+    }
+  }, [username, hasFullAccess, router]);
 
   const getEntries = async () => {
     try {
